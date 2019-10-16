@@ -2,35 +2,45 @@
 
 class Renderer {
     _renderUsers(users) {
-        const profilePic=$('#profile-pic')
-        // const 
+        $('.user-container').empty()
+        const source = $('#user-info-template').html()
+        const template = Handlebars.compile(source)
+        const newHTML = template(users[0])
+        $('.user-container').append(newHTML)
     }
 
     _renderFriends(users) {
+        const friend = users.slice(1)
+        this._handlebarTemplate($('ul'),$('#friends-template'),{ "friend": friend })
     }
 
     _renderQuote(quoteInfo) {
-        const quoteElement=$('#quote')
+        const quoteElement = $('#quote')
         quoteElement.text(quoteInfo);
-        
     }
 
     _renderPokemon(pokemonInfo) {
-
+        this._handlebarTemplate($('.pokemon-container'),$('#pokemon-template'),pokemonInfo)
     }
 
     _renderMeat(meatText) {
-        const meatTextElement=$('.meat-text')
+        const meatTextElement = $('.meat-text')
         meatTextElement.text(meatText);
     }
 
-    render(data){
-        // this._renderUsers(data.users)
+    _handlebarTemplate(targetObject,templateObject,data){
+        targetObject.empty()
+        const source = $(templateObject).html()
+        const template = Handlebars.compile(source)
+        const newHTML = template(data)
+        $(targetObject).append(newHTML)
+    }
+    render(data) {
+        this._renderUsers(data.users)
         this._renderQuote(data.quote)
-        // this._renderFriends(data.users)
-        // this._renderPokemon(pokemonInfo)
+        this._renderFriends(data.users)
+        this._renderPokemon(data.pokemon)
         this._renderMeat(data.meatText)
-        //invokes all the individual _render methods
     }
 }
 

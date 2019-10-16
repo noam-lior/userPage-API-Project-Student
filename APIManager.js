@@ -6,8 +6,6 @@ class APIManager {
     }
 
     loadData() {
-        //you should make all your API requests here
-        //each request should update the `data` object accordingly
         this._loadUsers()
         this._loadQuote()
         this._loadPokemon()
@@ -16,17 +14,20 @@ class APIManager {
 
     _loadUsers() {
         const NUM_OF_USERS = 7;
-        for (let i = 0; i < NUM_OF_USERS; i++)
-            $.ajax({
-                method: "GET",
-                url: 'https://randomuser.me/api/',
-                dataType: 'json',
-                success: data => {
-                    const rawData = data.results[0];
-                    const userObject = { "first name": rawData.name.first, "last name": rawData.name.last, "picture": rawData.picture }
+        this.data.users = []
+
+        $.ajax({
+            method: "GET",
+            url: `https://randomuser.me/api/?results=${NUM_OF_USERS}`,
+            dataType: 'json',
+            success: data => {
+                const results = data.results
+                for (let result of results) {
+                    const userObject = { "firstName": result.name.first, "lastName": result.name.last, "picture": result.picture.medium }
                     this.data.users.push(userObject);
                 }
-            });
+            }
+        });
     }
 
     _loadQuote() {
@@ -43,12 +44,12 @@ class APIManager {
         $.ajax({
             method: "GET",
             url: `https://pokeapi.co/api/v2/pokemon/${id}`,
-            success: data => { this.data.pokemon = { "name": data.name, "sprites": data.sprites } }
+            success: data => { this.data.pokemon = { "name": data.name, "sprite": data.sprites.front_default } }
         })
     }
 
-    _loadText(){
-        const type="all-meat"
+    _loadText() {
+        const type = "all-meat"
         $.ajax({
             method: "GET",
             url: `https://baconipsum.com/api/?type=${type}`,

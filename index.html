@@ -15,30 +15,20 @@
 <body>
     <div class="container">
 
-        <!--grid row 1-->
-        <div class="user-container">
-            <div id="profile-pic"></div>
-            <div class="user-info"></div>
-        </div>
-
-        <!--grid row 2-->
+        <div class="user-container"></div>
         <div class="quote-container">
             <p>Favorite Quote:</p>
             <p id="quote"></p>
         </div>
-        <!--grid row 3-->
         <div class="content-container">
-            <div class="pokemon-container">
-                <img id="pokemon-image">
-                <p id="pokemon-text"></p>
-            </div>
+            <div class="pokemon-container"></div>
             <div id="about">About me:</div>
             <div class="meat-text"></div>
-
         </div>
 
         <!--grid row 3 col 3-->
         <div class="friends">
+            Friends
             <ul></ul>
         </div>
     </div>
@@ -48,7 +38,29 @@
         <button id="display-user">Display User</button>
     </div>
 
+    <srcipt id="user-info-template" type="text/x-handlebars-template">
+        <img id="profile-pic" src={{picture}}></img>
+            <div class="user-info">{{firstName}} {{lastName}}</div>
+    </srcipt>
+
+    <srcipt id="friends-template" type="text/x-handlebars-template">
+        {{#each friend}}
+        <li>{{firstName}} {{lastName}}</li>
+        {{/each}}
+    </srcipt>
+
+    <srcipt id="pokemon-template" type="text/x-handlebars-template">
+        <img id="pokemon-image" src={{sprite}}>
+        <p id="pokemon-text">{{name}}</p>
+    </srcipt>
+
+    <srcipt id="pokemon-template" type="text/x-handlebars-template">
+        <img id="pokemon-image" src={{sprite}}>
+        <p id="pokemon-text">{{name}}</p>
+    </srcipt>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
     <script src="APIManager.js"></script>
     <script src="Renderer.js"></script>
     <script src="main.js"></script>

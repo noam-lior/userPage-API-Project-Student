@@ -82,6 +82,10 @@ ul {
     list-style-type: none;
 }
 
+li{
+    margin:10px;
+}
+
 .buttons {
     position: fixed;
     bottom: 1vw;
