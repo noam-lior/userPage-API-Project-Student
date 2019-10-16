@@ -42,5 +42,20 @@ class Renderer {
         this._renderPokemon(data.pokemon)
         this._renderMeat(data.meatText)
     }
+
+    renderDropdown(){
+
+        const data=JSON.parse(localStorage["savedUsers"] || "[]")
+        if(data)
+        {
+            let users=[]
+            for(let registry of data)
+            {
+                let currentUser=registry.users[0]
+                let userObject={"firstName":currentUser.firstName,"lastName":currentUser.lastName}
+                users.push(userObject)
+            }
+        this._handlebarTemplate($('.dropdown-content'),$("#load-user-template"),{"users":users})}
+    }
 }
 

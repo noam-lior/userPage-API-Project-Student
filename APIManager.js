@@ -23,7 +23,11 @@ class APIManager {
             success: data => {
                 const results = data.results
                 for (let result of results) {
-                    const userObject = { "firstName": result.name.first, "lastName": result.name.last, "picture": result.picture.medium }
+                    const userObject = {
+                        
+                         "firstName": result.name.first, "lastName": result.name.last, "picture": result.picture.medium,
+                          "city":result.location.city, "state":result.location.state, "country":result.location.country
+                    }
                     this.data.users.push(userObject);
                 }
             }
